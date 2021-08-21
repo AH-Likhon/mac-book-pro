@@ -163,7 +163,7 @@ function getInputValue(input) {
     const inputNumberValue = parseInt(inputNumber.innerText);
     return inputNumberValue;
 }
-function calculateTotalCost() {
+function calculateTotalCost(id) {
     const bestPrice = getInputValue('best-price');
     const extraMemoryCost = getInputValue('extra-memory');
     const extrastorageCost = getInputValue('extra-storage');
@@ -173,4 +173,30 @@ function calculateTotalCost() {
 
 
     document.getElementById('total-price').innerText = total;
+    document.getElementById('promo-price').innerText = total;
 }
+
+
+
+// apply promo code event handler
+
+function applyBtn() {
+    const inputField = document.getElementById('input-field');
+    let applyBtn = document.getElementById('apply-btn');
+    const promoPrice = document.getElementById('promo-price');
+    let promoCurrentPrice = promoPrice.innerText;
+
+    const twentyPercent = parseInt(promoCurrentPrice) * (20 / 100);
+
+    if (inputField.value == 'stevekaku') {
+        promoCurrentPrice = parseInt(promoCurrentPrice) - twentyPercent;
+        inputField.value = '';
+    }
+    promoPrice.innerText = promoCurrentPrice;
+}
+
+// document.getElementById('input-field').addEventListener('change', function () {
+//     const inputField = document.getElementById('input-field');
+//     console.log(inputField.value);
+// })
+
