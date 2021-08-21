@@ -195,8 +195,4 @@ function applyBtn() {
     promoPrice.innerText = promoCurrentPrice;
 }
 
-// document.getElementById('input-field').addEventListener('change', function () {
-//     const inputField = document.getElementById('input-field');
-//     console.log(inputField.value);
-// })
 
