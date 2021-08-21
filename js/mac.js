@@ -1,18 +1,4 @@
-// function getBestPrice(sixteenGb) {
-//     const bestPrice = document.getElementById('best-price');
-//     const bestPriceValue = bestPrice.innerText;
-//     if (sixteenGb == true) {
-//         bestPrice.innerText = parseInt(bestPriceValue);
-//     } else {
-//         bestPrice.innerText = parseInt(bestPriceValue) + 100;
-//     }
-//     // console.log(bestPriceValue);
-//     // return bestPrice;
-// }
-
-
-
-
+// get extra memory cost
 function getExtraMemoryCost(memoryCost) {
     const memoryPrice = document.getElementById('extra-memory-cost');
     let memoryPriceValue = memoryPrice.innerText;
@@ -34,22 +20,26 @@ function getExtraMemoryCost(memoryCost) {
     calculateTotalCost();
 }
 
+
+// get extra storage cost
 function getExtraStorageCost(storageCost, isOneTB) {
     const storagePrice = document.getElementById('extra-storage-cost');
     let storagePriceValue = storagePrice.innerText;
 
     if (storageCost == true && isOneTB == true) {
-        storagePriceValue = parseInt(storagePriceValue) + 180;
-    } else if (storageCost == true && isOneTB == false) {
-        storagePriceValue = parseInt(storagePriceValue) + 100;
-    } else if (storagePriceValue > 0) {
-        if (storagePriceValue % 100 == 0) {
-            storagePriceValue = parseInt(storagePriceValue) - 100;
-        } else if (storagePriceValue % 180 == 0) {
-            storagePriceValue = parseInt(storagePriceValue) - 180;
+        if (storagePriceValue == 0) {
+            storagePriceValue = parseInt(storagePriceValue) + 180;
         } else {
-            storagePriceValue = 0;
+            storagePriceValue = 180;
         }
+    } else if (storageCost == true && isOneTB == false) {
+        if (storagePriceValue == 0) {
+            storagePriceValue = parseInt(storagePriceValue) + 100;
+        } else {
+            storagePriceValue = 100;
+        }
+    } else {
+        storagePriceValue = 0;
     }
 
     return storagePrice.innerText = storagePriceValue;
@@ -57,7 +47,7 @@ function getExtraStorageCost(storageCost, isOneTB) {
 }
 
 
-
+// get delivery charge
 function getDeliveryCharge(deliveryCost) {
     const deliveryCharge = document.getElementById('delivery-charge-cost');
     let deliveryChargeValue = deliveryCharge.innerText;
@@ -81,28 +71,20 @@ function getDeliveryCharge(deliveryCost) {
 
 }
 
+
 // memory event handler
 document.getElementById('eight-gb-memory').addEventListener('click', function () {
-    // getBestPrice(true);
     getExtraMemoryCost(false);
-    // getExtraStorageCost(true);
-    // getDeliveryCharge(true);
-})
+});
+
 document.getElementById('sixteen-gb-memory').addEventListener('click', function () {
-    // getBestPrice(true);
     getExtraMemoryCost(true);
-    // getExtraStorageCost(true);
-    // getDeliveryCharge(true);
 })
-
-
 
 
 
 // storage event handler
 document.getElementById('first-ssd').addEventListener('click', function () {
-    // getBestPrice(false);
-    // getExtraMemoryCost(false);
     getExtraStorageCost(false, false);
     const secondSSD = document.getElementById('second-ssd');
     const thirdSSD = document.getElementById('third-ssd');
@@ -110,15 +92,10 @@ document.getElementById('first-ssd').addEventListener('click', function () {
     thirdSSD.removeAttribute('disabled');
 
     calculateTotalCost();
+});
 
-    // if (firstSSDCost == 0) {
-
-    // }
-    // getDeliveryCharge(false);
-})
 document.getElementById('second-ssd').addEventListener('click', function () {
-    // getBestPrice(true);
-    // getExtraMemoryCost(false);
+
     const secondSsdCost = getExtraStorageCost(true, false);
     const secondSSD = document.getElementById('second-ssd');
 
@@ -130,10 +107,9 @@ document.getElementById('second-ssd').addEventListener('click', function () {
     }
 
     calculateTotalCost();
-})
+});
+
 document.getElementById('third-ssd').addEventListener('click', function () {
-    // getBestPrice(true);
-    // getExtraMemoryCost(true, 180);
 
     const thirdSsdCost = getExtraStorageCost(true, true);
     const thirdSSD = document.getElementById('third-ssd');
@@ -146,7 +122,8 @@ document.getElementById('third-ssd').addEventListener('click', function () {
     }
 
     calculateTotalCost();
-})
+});
+
 
 // delivery charge event handler
 document.getElementById('free-delivery').addEventListener('click', function () {
@@ -162,8 +139,9 @@ function getInputValue(input) {
     const inputNumber = document.getElementById(input + '-cost');
     const inputNumberValue = parseInt(inputNumber.innerText);
     return inputNumberValue;
-}
-function calculateTotalCost(id) {
+};
+
+function calculateTotalCost() {
     const bestPrice = getInputValue('best-price');
     const extraMemoryCost = getInputValue('extra-memory');
     const extrastorageCost = getInputValue('extra-storage');
